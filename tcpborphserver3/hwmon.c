@@ -546,7 +546,9 @@ int setup_hwmon_tbs(struct katcp_dispatch *d)
                                "/sys/bus/i2c/devices/0-0050/in6_input",
                                NULL,
                                NULL,
-                               1, 1);
+                               /* ROACH2 rev2 12V voltage divider:          */
+                               /* +Vs -- 9.6 kOhm -- Vadc -- 10 kOhm -- GND */
+                               29600, 10000);
 
   rtn += register_hwmon_tbs(d, "raw.voltage.3v3aux",
                                "auxiliary 3.3v voltage rail",
@@ -574,7 +576,11 @@ int setup_hwmon_tbs(struct katcp_dispatch *d)
                                "/sys/bus/i2c/devices/0-0051/in0_input",
                                NULL,
                                "/sys/bus/i2c/devices/0-0051/in0_crit",
-                               5, 2);
+                               /* ROACH2 rev2 values:             */
+                               /* Rs = 0.002 ohms, Rg = 1200 ohms */
+                               /* scale = Rg/(Rg+100K)/Rs         */
+                               /*       = 1500/253 =~ 5.93        */
+                               1500, 253);
 
   rtn += register_hwmon_tbs(d, "raw.current.2v5",
                                "2.5v rail current",
@@ -582,7 +588,11 @@ int setup_hwmon_tbs(struct katcp_dispatch *d)
                                "/sys/bus/i2c/devices/0-0051/in1_input",
                                NULL,
                                "/sys/bus/i2c/devices/0-0051/in1_crit", 
-                               200, 499);
+                               /* ROACH2 rev2 values:             */
+                               /* Rs = 0.005 ohms, Rg = 768 ohms  */
+                               /* scale = Rg/(Rg+100K)/Rs         */
+                               /*       = 4800/3149 =~ 1.52       */
+                               4800, 3149);
 
   rtn += register_hwmon_tbs(d, "raw.current.1v8",
                                "1.8v rail current",
@@ -590,7 +600,11 @@ int setup_hwmon_tbs(struct katcp_dispatch *d)
                                "/sys/bus/i2c/devices/0-0051/in2_input",
                                NULL,
                                "/sys/bus/i2c/devices/0-0051/in2_crit", 
-                               5, 2);
+                               /* ROACH2 rev2 values:             */
+                               /* Rs = 0.002 ohms, Rg = 1200 ohms */
+                               /* scale = Rg/(Rg+100K)/Rs         */
+                               /*       = 1500/253 =~ 5.93        */
+                               1500, 253);
 
   rtn += register_hwmon_tbs(d, "raw.current.1v5",
                                "1.5v rail current",
@@ -598,7 +612,11 @@ int setup_hwmon_tbs(struct katcp_dispatch *d)
                                "/sys/bus/i2c/devices/0-0051/in3_input",
                                NULL,
                                "/sys/bus/i2c/devices/0-0051/in3_crit", 
-                               10, 1);
+                               /* ROACH2 rev2 values:             */
+                               /* Rs = 0.001 ohms, Rg = 1200 ohms */
+                               /* scale = Rg/(Rg+100K)/Rs         */
+                               /*       = 3000/253 =~ 11.86       */
+                               3000, 253);
 
   rtn += register_hwmon_tbs(d, "raw.current.1v",
                                "1v rail current",
@@ -606,7 +624,11 @@ int setup_hwmon_tbs(struct katcp_dispatch *d)
                                "/sys/bus/i2c/devices/0-0051/in4_input",
                                NULL,
                                "/sys/bus/i2c/devices/0-0051/in4_crit",
-                               40, 1);
+                               /* ROACH2 rev2 values:              */
+                               /* Rs = 0.00025 ohms, Rg = 470 ohms */
+                               /* scale = Rg/(Rg+100K)/Rs         */
+                               /*       = 188000/10047 =~ 18.71    */
+                               188000, 10047);
 
   rtn += register_hwmon_tbs(d, "raw.current.5v",
                                "5v rail current",
@@ -614,7 +636,11 @@ int setup_hwmon_tbs(struct katcp_dispatch *d)
                                "/sys/bus/i2c/devices/0-0051/curr1_input",
                                NULL,
                                NULL, 
-                               1, 1);
+                               /* ROACH2 rev2 values:       */
+                               /* Rs = 0.002 ohms, Av = 6   */
+                               /* scale = 14/(10*Rs*Av*255) */
+                               /*       = 70/153 =~ 0.46    */
+                               70, 153);
 
   rtn += register_hwmon_tbs(d, "raw.current.12v",
                                "12v rail current",
@@ -622,7 +648,11 @@ int setup_hwmon_tbs(struct katcp_dispatch *d)
                                "/sys/bus/i2c/devices/0-0050/curr1_input",
                                NULL,
                                NULL, 
-                               1, 1);
+                               /* ROACH2 rev2 values:       */
+                               /* Rs = 0.002 ohms, Av = 6   */
+                               /* scale = 14/(10*Rs*Av*255) */
+                               /*       = 28/153 =~ 0.18    */
+                               28, 153);
 
   return rtn;
 }
