@@ -4,7 +4,7 @@ include ../Makefile.inc
 
 VERSION = 0.1
 
-BUILD = $(shell date -u '+%Y-%m-%dT%H:%M:%S %Z')
+BUILD := $(shell date -u '+%Y-%m-%dT%H:%M:%S %Z')
 VERSION = $(GITVER)
 
 INC = -I.
