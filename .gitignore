@@ -1,6 +1,7 @@
 *.o
 katcp/libkatcp.a
 katcp/libkatcp.so
+tags
 tcpborphserver3/tcpborphserver3
 tcpborphserver3/tcpborphserver3-*
 tcpborphserver3/tcpborphserver3.log
