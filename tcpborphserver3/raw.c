@@ -167,6 +167,21 @@ static void word_normalise(struct katcl_byte_bit *bb)
 }
 #endif
 
+static int deprogram_fpga()
+{
+  int dfd = open(TBS_FPGA_CONFIG, O_WRONLY);
+  if(dfd < 0) {
+    return KATCP_RESULT_FAIL;
+  }
+  /*
+   * This always fails, so ignore return code.
+   * (Maybe there is an ioctl that would deprogram and return success?
+   */
+  write(dfd, "\0", 1);
+  close(dfd);
+  return KATCP_RESULT_OK;
+}
+
 /*********************************************************************/
 
 int display_dir_cmd(struct katcp_dispatch *d, char *directory)
@@ -1407,7 +1422,8 @@ int progdev_cmd(struct katcp_dispatch *d, int argc)
   stop_fpga_tbs(d);
 
   if(argc <= 1){
-    return KATCP_RESULT_OK;
+    log_message_katcp(d, KATCP_LEVEL_INFO, NULL, "no file name given so deprogramming");
+    return deprogram_fpga();
   }
 
   file = arg_string_katcp(d, 1);
