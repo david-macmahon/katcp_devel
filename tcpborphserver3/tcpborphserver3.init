@@ -1,0 +1,43 @@
+# Sample tcpborphserver3.init file
+#
+# Scaling factors below are close approximations of the ROACH2 rev2 scaling
+# factors compiled into tcpborphserver3 (see hwmon.c).
+
+#3v3 sense resistor: 0.002 ohm, gain resistor: 1200 ohm
+?sensor-limit raw.current.3v3 mult 593                 
+?sensor-limit raw.current.3v3 div 100 
+#2v5 sense resistor: 0.005 ohm, gain resistor: 768 ohm
+?sensor-limit raw.current.2v5 mult 152                
+?sensor-limit raw.current.2v5 div 100 
+#1v8 sense resistor: 0.002 ohm, gain resistor: 1200 ohm
+?sensor-limit raw.current.1v8 mult 593                 
+?sensor-limit raw.current.1v8 div 100 
+#1v5 sense resistor: 0.001 ohm, gain resistor: 1200 ohm
+?sensor-limit raw.current.1v5 mult 1186                
+?sensor-limit raw.current.1v5 div 100  
+#1v sense resistor: 0.00025 ohm, gain resistor: 470 ohm
+?sensor-limit raw.current.1v mult 1871                 
+?sensor-limit raw.current.1v div 100  
+#12v sense resistor: 0.005 ohm      
+?sensor-limit raw.current.12v mult 100
+?sensor-limit raw.current.12v div 500 
+#5v sense resistor: 0.002 ohm        
+?sensor-limit raw.current.5v mult 100
+?sensor-limit raw.current.5v div 200 
+#12v voltage divider                
+?sensor-limit raw.voltage.12v mult 29600
+?sensor-limit raw.voltage.12v div 10000 
+?process ?serial-proxy start\_a\_serial\_proxy\_(?serial-proxy\_serial-port\_network-port\_serial-speed)
+?forget list-duplex
+?forget listen-duplex
+?forget process
+?forget arb
+?forget define
+?forget job
+?forget notice
+?forget dispatch
+?forget search
+?forget set
+?forget get
+?forget dict
+?chassis-led red off
