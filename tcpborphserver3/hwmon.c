@@ -543,7 +543,7 @@ int setup_hwmon_tbs(struct katcp_dispatch *d)
                                "12v voltage rail",
                                "millivolts",
                                /* on rev1 this would be not connected */
-                               "/sys/bus/i2c/devices/0-0050/in12_input",
+                               "/sys/bus/i2c/devices/0-0050/in6_input",
                                NULL,
                                NULL,
                                1, 1);
