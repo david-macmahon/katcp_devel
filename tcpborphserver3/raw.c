@@ -167,7 +167,7 @@ static void word_normalise(struct katcl_byte_bit *bb)
 }
 #endif
 
-static int deprogram_fpga()
+static int deprogram_fpga(struct katcp_dispatch *d)
 {
   int dfd = open(TBS_FPGA_CONFIG, O_WRONLY);
   if(dfd < 0) {
@@ -175,10 +175,15 @@ static int deprogram_fpga()
   }
   /*
    * This always fails, so ignore return code.
-   * (Maybe there is an ioctl that would deprogram and return success?
+   * (Maybe there is an ioctl that would deprogram and return success?)
    */
   write(dfd, "\0", 1);
   close(dfd);
+
+  /* Set new status and send status messages to clients */
+  status_fpga_tbs(d, TBS_FPGA_DOWN);
+
+  /* Return OK since we succeeded even if not all informs went out */
   return KATCP_RESULT_OK;
 }
 
@@ -1423,7 +1428,7 @@ int progdev_cmd(struct katcp_dispatch *d, int argc)
 
   if(argc <= 1){
     log_message_katcp(d, KATCP_LEVEL_INFO, NULL, "no file name given so deprogramming");
-    return deprogram_fpga();
+    return deprogram_fpga(d);
   }
 
   file = arg_string_katcp(d, 1);
