@@ -78,6 +78,9 @@ static int actually_set_output_flat_katcp(struct katcp_flat *fx, unsigned int de
 
 static void deallocate_flat_katcp(struct katcp_dispatch *d, struct katcp_flat *f);
 
+/* Forward declaration */
+int setup_default_group(struct katcp_dispatch *d, char *name);
+
 /********************************************************************/
 
 /* groups of things *************************************************/
